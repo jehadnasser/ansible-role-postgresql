@@ -24,9 +24,9 @@ install:
 
 script:
   # Basic role syntax check
-  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check -e 'ansible_python_interpreter=/usr/bin/python3'
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   # Run the role
-  - ansible-playbook tests/test.yml -i tests/inventory --connection=local -e 'ansible_python_interpreter=/usr/bin/python3'
+  - ansible-playbook tests/test.yml -i tests/inventory --connection=local
   # Check postgresql version
   - psql -V
   
