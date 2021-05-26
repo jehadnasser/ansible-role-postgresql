@@ -1,0 +1,15 @@
+galaxy_info:
+  role_name: postgresql
+  author: Jehad Nasser (github.com/jehadnasser)
+  description: Install postgresql
+
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Ubuntu
+
+  galaxy_tags: [postgresql]
+
+dependencies: []

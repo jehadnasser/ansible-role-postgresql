@@ -1,0 +1,69 @@
+---
+# Installation
+- name: Install postgresql and its dependencies
+  apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+      - python3-pip
+    state: present
+
+- name: Install Python packages
+  pip:
+    name: psycopg2-binary
+
+- name: Start and enable services
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+# Configure DB user and password
+- name: Create database
+  postgresql_db:
+    state: present
+    name: "{{ db_name }}"
+  become: yes
+  become_user: postgres
+
+- name: Create db user
+  postgresql_user:
+    state: present
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+  become: yes
+  become_user: postgres
+
+- name: Grant db user access to app db
+  postgresql_privs:
+    type: database
+    database: "{{ db_name }}"
+    roles: "{{ db_user }}"
+    grant_option: no
+    privs: all
+  become: yes
+  become_user: postgres
+
+# Configure Postgres connection
+- name: get psql version-directory name
+  shell: echo $(ls /etc/postgresql)
+  register: psql_version
+
+- name: Allow connection from the host for all "host all all 0.0.0.0/0 md5"
+  postgresql_pg_hba:
+    dest: /etc/postgresql/{{psql_version.stdout}}/main/pg_hba.conf
+    contype: host
+    users: all
+    databases: all
+    method: md5
+    source: 0.0.0.0/0
+    create: true
+  become: yes
+  become_user: postgres
+  notify: restart postgres
+
+- name: Allow connection to listen for all addresses
+  replace:
+    path: /etc/postgresql/{{psql_version.stdout}}/main/postgresql.conf
+    regexp: "^#*\\s*listen_addresses\\s*=\\s*'localhost'"
+    replace: "listen_addresses = '*'"
