@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
-  remote_user: root
+  remote: true
+  become_method: sudo
   roles:
     - ansible-role-postgresql
