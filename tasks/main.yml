@@ -47,7 +47,11 @@
 
 - name: find pg_hba.conf
   shell: sudo find / -name pg_hba.conf
-  
+  register: psql_location
+
+- debug: msg="{{ psql_location.stdout }}"
+
+
 # Configure Postgres connection
 - name: get psql version-directory name
   shell: echo $(ls /etc/postgresql)
