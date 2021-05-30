@@ -1,4 +1,4 @@
-Role Name
+postgresql
 =========
 
 [![Build Status](https://travis-ci.org/jehadnasser/ansible-role-postgresql.svg?branch=main)](https://travis-ci.org/github/jehadnasser/ansible-role-postgresql)
