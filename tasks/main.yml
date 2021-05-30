@@ -45,6 +45,9 @@
   become: yes
   become_user: postgres
 
+- name: find pg_hba.conf
+  shell: sudo find / -name pg_hba.conf
+  
 # Configure Postgres connection
 - name: get psql version-directory name
   shell: echo $(ls /etc/postgresql)
