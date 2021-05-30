@@ -6,6 +6,7 @@
       - postgresql
       - postgresql-contrib
       - python3-pip
+      - acl
     state: present
 
 - name: Install Python packages
