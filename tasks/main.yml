@@ -45,16 +45,9 @@
   become: yes
   become_user: postgres
 
-# - name: find pg_hba.conf
-#   shell: sudo find / -name pg_hba.conf
-#   register: psql_location
-
-# - debug: msg="{{ psql_location.stdout }}"
-
-
 # Configure Postgres connection
 - name: get psql version-directory name
-  shell: echo $(ls /etc/postgresql) | cut -d' ' -f1
+  shell: echo $(ls /etc/postgresql) | rev |  cut -d' ' -f1 | rev
   register: psql_version
 
 - name: Allow connection from the host for all "host all all 0.0.0.0/0 md5"
@@ -68,7 +61,6 @@
     create: true
   become: yes
   become_user: postgres
-  # notify: restart postgres
 
 - name: Allow connection to listen for all addresses
   replace:
