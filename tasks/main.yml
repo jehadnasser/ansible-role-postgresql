@@ -54,7 +54,7 @@
 
 # Configure Postgres connection
 - name: get psql version-directory name
-  shell: echo $(ls /etc/postgresql)
+  shell: echo $(ls /etc/postgresql) | cut -d' ' -f2
   register: psql_version
 
 - name: Allow connection from the host for all "host all all 0.0.0.0/0 md5"
