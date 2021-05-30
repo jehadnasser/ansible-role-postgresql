@@ -45,11 +45,11 @@
   become: yes
   become_user: postgres
 
-- name: find pg_hba.conf
-  shell: sudo find / -name pg_hba.conf
-  register: psql_location
+# - name: find pg_hba.conf
+#   shell: sudo find / -name pg_hba.conf
+#   register: psql_location
 
-- debug: msg="{{ psql_location.stdout }}"
+# - debug: msg="{{ psql_location.stdout }}"
 
 
 # Configure Postgres connection
@@ -68,7 +68,7 @@
     create: true
   become: yes
   become_user: postgres
-  notify: restart postgres
+  # notify: restart postgres
 
 - name: Allow connection to listen for all addresses
   replace:
