@@ -7,6 +7,8 @@
       - postgresql-contrib
       - python3-pip
       - acl
+      - python-psycopg2
+      - libpq-dev
     state: present
 
 - name: Install Python packages
